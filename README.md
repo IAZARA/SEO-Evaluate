@@ -1,8 +1,25 @@
 # SEO Evaluate
 
-![Banner de SEO Evaluate](./docs/banner.svg)
+<img src="./docs/banner.png" alt="Banner de SEO Evaluate" width="100%" />
 
-**SEO Evaluate** es una plataforma minimalista para auditar una URL pública y obtener un diagnóstico SEO claro, rápido y accionable. El objetivo del MVP es resolver el flujo principal: pegar una URL, analizar el HTML público y entender qué mejorar primero.
+<p align="center">
+  <img alt="Next.js" src="https://img.shields.io/badge/Next.js-16-111827?style=for-the-badge&logo=nextdotjs" />
+  <img alt="React" src="https://img.shields.io/badge/React-19-0F172A?style=for-the-badge&logo=react" />
+  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5-0052FF?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind_CSS-4-38BDF8?style=for-the-badge&logo=tailwindcss&logoColor=white" />
+</p>
+
+**SEO Evaluate** es una plataforma minimalista para auditar una URL pública y obtener un diagnóstico SEO claro, rápido y accionable. El objetivo del MVP es resolver el flujo principal: **pegar una URL, analizar el HTML público y entender qué mejorar primero**.
+
+## Descripción del proyecto
+
+La aplicación funciona como una primera capa de auditoría SEO para dueños de negocio, marketers, agencias y equipos web. Recibe una URL, descarga el HTML público desde una API interna y transforma señales técnicas básicas en un score entendible, prioridades ordenadas por impacto y recomendaciones concretas.
+
+No busca reemplazar herramientas avanzadas como Screaming Frog, Ahrefs o Semrush; busca ofrecer una experiencia inicial simple para detectar problemas evidentes y explicar próximos pasos sin fricción.
+
+## Etiquetas
+
+`seo` · `seo-audit` · `nextjs` · `typescript` · `tailwindcss` · `react` · `cheerio` · `url-auditor` · `web-audit` · `technical-seo`
 
 ## Funcionalidades
 
