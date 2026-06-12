@@ -3,6 +3,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
+  color-scheme: light;
   --background: #f7f9fb;
   --foreground: #191c1e;
   --muted: #5c647a;
@@ -29,6 +30,7 @@
 }
 
 .dark {
+  color-scheme: dark;
   --background: #0b1326;
   --foreground: #e6eefb;
   --muted: #a8b3c7;
@@ -51,6 +53,9 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
 }
 
 button,
@@ -61,4 +66,13 @@ input {
 ::selection {
   background: var(--accent-soft);
   color: var(--foreground);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -59,18 +59,9 @@ export default function Home() {
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     const nextTheme = storedTheme === "dark" || (!storedTheme && prefersDark) ? "dark" : "light";
 
-    document.documentElement.classList.toggle("dark", nextTheme === "dark");
+    applyTheme(nextTheme);
     queueMicrotask(() => setTheme(nextTheme));
   }, []);
-
-  useEffect(() => {
-    if (theme === "system") {
-      return;
-    }
-
-    document.documentElement.classList.toggle("dark", isDark);
-    window.localStorage.setItem("seo-platform-theme", theme);
-  }, [isDark, theme]);
 
   const canSubmit = useMemo(() => url.trim().length > 0 && !isLoading, [isLoading, url]);
 
@@ -133,6 +124,13 @@ export default function Home() {
     URL.revokeObjectURL(downloadUrl);
   }
 
+  function handleThemeToggle() {
+    const nextTheme = isDark ? "light" : "dark";
+    applyTheme(nextTheme);
+    window.localStorage.setItem("seo-platform-theme", nextTheme);
+    setTheme(nextTheme);
+  }
+
   return (
     <main className="min-h-dvh bg-[var(--background)] text-[var(--foreground)]">
       <header className="sticky top-0 z-20 border-b border-[var(--border)] bg-[color-mix(in_srgb,var(--background)_88%,transparent)] backdrop-blur-xl">
@@ -160,12 +158,34 @@ export default function Home() {
           </nav>
 
           <button
-            aria-label={isDark ? "Activar modo claro" : "Activar modo oscuro"}
-            className="grid h-10 w-10 place-items-center rounded-lg border border-[var(--border)] bg-[var(--card)] text-[var(--foreground)] transition hover:border-[var(--accent)]"
+            aria-label={isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+            aria-pressed={isDark}
+            className="relative grid h-10 w-[76px] grid-cols-2 items-center rounded-full border border-[var(--border)] bg-[var(--card)] p-1 text-[var(--muted)] transition hover:border-[var(--accent)]"
             type="button"
-            onClick={() => setTheme((current) => (current === "dark" ? "light" : "dark"))}
+            onClick={handleThemeToggle}
           >
-            {isDark ? <Sun size={18} /> : <Moon size={18} />}
+            <span
+              className={`absolute inset-y-1 left-1 w-8 rounded-full bg-[var(--accent)] transition-transform duration-200 ${
+                isDark ? "translate-x-8" : "translate-x-0"
+              }`}
+              aria-hidden="true"
+            />
+            <span
+              className={`relative z-10 grid place-items-center transition-colors ${
+                isDark ? "text-[var(--muted)]" : "text-white"
+              }`}
+              aria-hidden="true"
+            >
+              <Sun size={16} />
+            </span>
+            <span
+              className={`relative z-10 grid place-items-center transition-colors ${
+                isDark ? "text-white" : "text-[var(--muted)]"
+              }`}
+              aria-hidden="true"
+            >
+              <Moon size={16} />
+            </span>
           </button>
         </div>
       </header>
@@ -488,6 +508,11 @@ function normalizeUrlInput(value: string) {
   } catch {
     return "";
   }
+}
+
+function applyTheme(theme: Exclude<ThemeMode, "system">) {
+  document.documentElement.classList.toggle("dark", theme === "dark");
+  document.documentElement.style.colorScheme = theme;
 }
 
 function statusClass(status: AuditStatus) {
