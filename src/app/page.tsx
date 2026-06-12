@@ -72,7 +72,7 @@ const structuredData = {
     priceCurrency: "USD",
   },
   featureList: [
-    "Auditoría SEO por URL",
+    "Auditoría de visibilidad SEO e IA por URL",
     "Score SEO de 0 a 100",
     "Revisión de title y meta description",
     "Detección de H1, headings e imágenes sin ALT",
@@ -236,14 +236,14 @@ export default function Home() {
         <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-5 sm:p-8">
           <div className="mb-8 max-w-2xl">
             <p className="mb-3 font-mono text-xs font-medium uppercase tracking-[0.18em] text-[var(--accent)]">
-              SEO URL AUDIT
+              SEO + IA VISIBILITY
             </p>
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-              Analizá una página y detectá oportunidades SEO en segundos.
+              Analizá si buscadores e IA entienden tu página.
             </h1>
             <p className="mt-4 max-w-xl text-base leading-7 text-[var(--muted)]">
-              Pegá una URL pública y recibí un score, prioridades y recomendaciones concretas para mejorar title,
-              metadatos, estructura, indexabilidad y experiencia mobile.
+              Pegá una URL pública y revisá señales SEO que también ayudan a que asistentes de IA interpreten mejor
+              tu contenido: title, metadatos, estructura, indexabilidad y experiencia mobile.
             </p>
           </div>
 

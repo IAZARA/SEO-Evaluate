@@ -17,19 +17,19 @@
   <img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind_CSS-4-38BDF8?style=for-the-badge&logo=tailwindcss&logoColor=white" />
 </p>
 
-**SEO Evaluate** es una plataforma minimalista para auditar una URL pública y obtener un diagnóstico SEO claro, rápido y accionable. El objetivo del MVP es resolver el flujo principal: **pegar una URL, analizar el HTML público y entender qué mejorar primero**.
+**SEO Evaluate** es una plataforma minimalista para revisar si buscadores e IA pueden entender una URL pública. El objetivo del MVP es resolver el flujo principal: **pegar una URL, analizar señales SEO del HTML público y entender qué mejorar primero**.
 
 App pública: [https://seo-evaluate.vercel.app](https://seo-evaluate.vercel.app)
 
 ## Descripción del proyecto
 
-La aplicación funciona como una primera capa de auditoría SEO para dueños de negocio, marketers, agencias y equipos web. Recibe una URL, descarga el HTML público desde una API interna y transforma señales técnicas básicas en un score entendible, prioridades ordenadas por impacto y recomendaciones concretas.
+La aplicación funciona como una primera capa de auditoría para dueños de negocio, marketers, agencias y equipos web que quieren mejorar su visibilidad en buscadores y asistentes de IA. Recibe una URL, descarga el HTML público desde una API interna y transforma señales técnicas básicas en un score entendible, prioridades ordenadas por impacto y recomendaciones concretas.
 
 No busca reemplazar herramientas avanzadas como Screaming Frog, Ahrefs o Semrush; busca ofrecer una experiencia inicial simple para detectar problemas evidentes y explicar próximos pasos sin fricción.
 
 ## Etiquetas
 
-`seo` · `seo-audit` · `nextjs` · `typescript` · `tailwindcss` · `react` · `cheerio` · `url-auditor` · `web-audit` · `technical-seo`
+`seo` · `seo-audit` · `ai-visibility` · `answer-engine-optimization` · `nextjs` · `typescript` · `tailwindcss` · `react` · `cheerio` · `url-auditor` · `web-audit` · `technical-seo`
 
 ## Funcionalidades
 
