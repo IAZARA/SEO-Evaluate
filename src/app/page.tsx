@@ -3,6 +3,7 @@
 import {
   AlertTriangle,
   Bot,
+  ChevronDown,
   CheckCircle2,
   Download,
   FileText,
@@ -10,6 +11,7 @@ import {
   Globe2,
   Heading1,
   Image as ImageIcon,
+  Info,
   Link2,
   Loader2,
   Moon,
@@ -453,7 +455,10 @@ function Results({ result }: { result: AuditResult }) {
         </Panel>
       </section>
 
-      <Panel title="Checks SEO" subtitle="Evaluación inicial basada en el HTML público de la URL analizada.">
+      <Panel
+        title="Checks SEO"
+        subtitle="Tocá una tarjeta para entender qué significa, por qué importa y cómo corregirlo."
+      >
         <div className="grid gap-3 md:grid-cols-2">
           {result.checks.map((check) => (
             <CheckCard key={check.id} check={check} />
@@ -486,18 +491,68 @@ function Panel({
 
 function CheckCard({ check }: { check: AuditCheck }) {
   const Icon = checkIcons[check.id] ?? FileText;
+  const [isOpen, setIsOpen] = useState(false);
+  const panelId = `check-${check.id}-explanation`;
 
   return (
-    <article className="rounded-xl border border-[var(--border)] bg-[var(--card-subtle)] p-4">
-      <div className="mb-4 flex items-start justify-between gap-4">
-        <div className="grid h-10 w-10 place-items-center rounded-lg bg-[var(--card)] text-[var(--accent)]">
-          <Icon size={18} />
+    <article
+      className={`overflow-hidden rounded-xl border bg-[var(--card-subtle)] transition ${
+        isOpen ? "border-[var(--accent)] shadow-sm shadow-[color-mix(in_srgb,var(--accent)_14%,transparent)]" : "border-[var(--border)]"
+      }`}
+    >
+      <button
+        aria-controls={panelId}
+        aria-expanded={isOpen}
+        className="block w-full p-4 text-left transition hover:bg-[color-mix(in_srgb,var(--accent)_5%,transparent)]"
+        type="button"
+        onClick={() => setIsOpen((current) => !current)}
+      >
+        <div className="mb-4 flex items-start justify-between gap-4">
+          <div className="flex min-w-0 items-start gap-3">
+            <div className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-[var(--card)] text-[var(--accent)]">
+              <Icon size={18} />
+            </div>
+            <div className="min-w-0">
+              <h3 className="font-semibold">{check.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{check.description}</p>
+            </div>
+          </div>
+          <StatusBadge status={check.status} />
         </div>
-        <StatusBadge status={check.status} />
-      </div>
-      <h3 className="font-semibold">{check.title}</h3>
-      <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{check.description}</p>
-      <p className="mt-3 border-t border-[var(--border)] pt-3 text-sm">{check.details}</p>
+        <p className="border-t border-[var(--border)] pt-3 text-sm">{check.details}</p>
+        <span className="mt-3 inline-flex items-center gap-2 text-xs font-medium text-[var(--accent)]">
+          <Info size={14} />
+          {isOpen ? "Ocultar explicación" : "Ver explicación simple"}
+          <ChevronDown className={`transition-transform ${isOpen ? "rotate-180" : ""}`} size={14} />
+        </span>
+      </button>
+
+      {isOpen ? (
+        <div id={panelId} className="border-t border-[var(--border)] px-4 pb-4 pt-4">
+          <dl className="grid gap-4 text-sm sm:grid-cols-2">
+            <div className="border-l-2 border-[var(--accent)] pl-3">
+              <dt className="font-medium">Qué significa</dt>
+              <dd className="mt-1 leading-6 text-[var(--muted)]">{check.explanation}</dd>
+            </div>
+            <div className="border-l-2 border-[var(--accent)] pl-3">
+              <dt className="font-medium">Por qué importa</dt>
+              <dd className="mt-1 leading-6 text-[var(--muted)]">{check.whyItMatters}</dd>
+            </div>
+            <div className="border-l-2 border-[var(--accent)] pl-3">
+              <dt className="font-medium">Qué hacer</dt>
+              <dd className="mt-1 leading-6 text-[var(--muted)]">{check.howToFix}</dd>
+            </div>
+            <div className="border-l-2 border-[var(--accent)] pl-3">
+              <dt className="font-medium">Ejemplo</dt>
+              <dd className="mt-2">
+                <code className="block overflow-x-auto rounded-md border border-[var(--border)] bg-[var(--card)] px-3 py-2 text-xs leading-5 text-[var(--foreground)]">
+                  {check.example}
+                </code>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      ) : null}
     </article>
   );
 }
@@ -577,7 +632,10 @@ function buildMarkdownReport(result: AuditResult) {
     .map((priority) => `- [${priority.impact}] ${priority.title}: ${priority.description}`)
     .join("\n");
   const checks = result.checks
-    .map((check) => `- ${check.title}: ${check.status.toUpperCase()} - ${check.details}`)
+    .map(
+      (check) =>
+        `- ${check.title}: ${check.status.toUpperCase()} - ${check.details}. Qué significa: ${check.explanation} Qué hacer: ${check.howToFix}`,
+    )
     .join("\n");
 
   return `# SEO Evaluate Report

@@ -210,6 +210,10 @@ function toPublicCheck(check: WeightedCheck): AuditCheck {
     title: check.title,
     description: check.description,
     details: check.details,
+    explanation: check.explanation,
+    whyItMatters: check.whyItMatters,
+    howToFix: check.howToFix,
+    example: check.example,
     status: check.status,
     score: check.score,
   };
@@ -284,6 +288,12 @@ function buildChecks(metrics: AuditMetrics, hasNoIndex: boolean): WeightedCheck[
       description: "La página debe cargarse con una conexión segura.",
       status: metrics.usesHttps ? "pass" : "fail",
       details: metrics.usesHttps ? "La URL usa HTTPS." : "La URL usa HTTP y pierde señales de confianza.",
+      explanation:
+        "HTTPS es la versión segura de una URL. Protege la conexión entre la persona que visita tu sitio y tu servidor.",
+      whyItMatters:
+        "Google y los usuarios confían más en sitios seguros. Si una página carga con HTTP, el navegador puede mostrar advertencias y bajar la confianza.",
+      howToFix: "Activá un certificado SSL y redireccioná todo el tráfico HTTP hacia HTTPS.",
+      example: "Usar https://tusitio.com en lugar de http://tusitio.com.",
       action: "Activá HTTPS y redireccioná todo el tráfico HTTP a HTTPS.",
       impact: "Alto",
       weight: 8,
@@ -297,6 +307,12 @@ function buildChecks(metrics: AuditMetrics, hasNoIndex: boolean): WeightedCheck[
         metrics.titleLength === 0
           ? "No se encontró una etiqueta title."
           : `Tiene ${metrics.titleLength} caracteres. Recomendado: 30 a 60.`,
+      explanation:
+        "El título SEO es el nombre que Google suele mostrar como título del resultado. No siempre es igual al título visible dentro de la página.",
+      whyItMatters:
+        "Es una de las primeras cosas que una persona ve antes de entrar. Un buen título mejora la claridad, el clic y la relevancia para buscadores.",
+      howToFix: "Escribí un título único, específico y cercano a 50-60 caracteres.",
+      example: "Auditoría SEO gratis para páginas web | SEO Evaluate",
       action: "Escribí un título único, específico y cercano a 50-60 caracteres.",
       impact: "Alto",
       weight: 12,
@@ -310,6 +326,12 @@ function buildChecks(metrics: AuditMetrics, hasNoIndex: boolean): WeightedCheck[
         metrics.metaDescriptionLength === 0
           ? "No se encontró meta description."
           : `Tiene ${metrics.metaDescriptionLength} caracteres. Recomendado: 110 a 160.`,
+      explanation:
+        "La meta descripción es un resumen breve de la página. Puede aparecer debajo del título en Google y ayuda a explicar por qué entrar.",
+      whyItMatters:
+        "No garantiza mejor posición por sí sola, pero puede mejorar el porcentaje de clics si comunica bien el beneficio de la página.",
+      howToFix: "Agregá una descripción clara con beneficio principal y palabra clave objetivo.",
+      example: "Analizá una URL y recibí un score SEO con prioridades y recomendaciones accionables.",
       action: "Agregá una descripción clara con beneficio principal y palabra clave objetivo.",
       impact: "Alto",
       weight: 12,
@@ -325,6 +347,12 @@ function buildChecks(metrics: AuditMetrics, hasNoIndex: boolean): WeightedCheck[
           : metrics.h1Count > 1
             ? `Se encontraron ${metrics.h1Count} H1. Conviene dejar uno principal.`
             : "No se encontró ningún H1.",
+      explanation:
+        "El H1 es el título principal visible de una página. Funciona como el tema central del contenido para usuarios y buscadores.",
+      whyItMatters:
+        "Si no hay H1, o hay demasiados, la página puede perder claridad sobre cuál es su tema principal.",
+      howToFix: "Definí un único H1 descriptivo y usá H2/H3 para organizar secciones.",
+      example: "H1: Analizá el SEO de cualquier página web",
       action: "Definí un único H1 descriptivo y usá H2/H3 para organizar secciones.",
       impact: "Alto",
       weight: 10,
@@ -335,6 +363,12 @@ function buildChecks(metrics: AuditMetrics, hasNoIndex: boolean): WeightedCheck[
       description: "Los H2 y H3 ordenan el contenido y facilitan el rastreo.",
       status: metrics.h2Count > 0 ? "pass" : metrics.h3Count > 0 ? "warning" : "fail",
       details: `H2 detectados: ${metrics.h2Count}. H3 detectados: ${metrics.h3Count}.`,
+      explanation:
+        "Los headings son subtítulos que ordenan el contenido. H2 suele marcar secciones importantes y H3 divide subsecciones.",
+      whyItMatters:
+        "Una estructura clara hace que la página sea más fácil de leer y ayuda a Google a entender la jerarquía del contenido.",
+      howToFix: "Agregá H2 para las secciones principales y H3 para subsecciones.",
+      example: "H2: Funcionalidades principales. H3: Exportar reporte.",
       action: "Agregá H2 para las secciones principales y H3 para subsecciones.",
       impact: "Medio",
       weight: 8,
@@ -348,6 +382,12 @@ function buildChecks(metrics: AuditMetrics, hasNoIndex: boolean): WeightedCheck[
         metrics.imageCount === 0
           ? "No se detectaron imágenes para auditar."
           : `${metrics.imagesMissingAlt} de ${metrics.imageCount} imágenes no tienen ALT.`,
+      explanation:
+        "El texto ALT describe una imagen para personas que usan lectores de pantalla y para casos donde la imagen no carga.",
+      whyItMatters:
+        "Mejora accesibilidad y le da contexto a buscadores sobre imágenes importantes del contenido.",
+      howToFix: "Agregá ALT descriptivos a imágenes informativas y ALT vacío a decorativas.",
+      example: 'alt="Panel con score SEO y recomendaciones"',
       action: "Agregá ALT descriptivos a imágenes informativas y ALT vacío a decorativas.",
       impact: "Medio",
       weight: 10,
@@ -358,6 +398,12 @@ function buildChecks(metrics: AuditMetrics, hasNoIndex: boolean): WeightedCheck[
       description: "Ayuda a evitar duplicidad y concentra señales SEO.",
       status: metrics.hasCanonical ? "pass" : "warning",
       details: metrics.hasCanonical ? "Se detectó URL canonical." : "No se detectó link canonical.",
+      explanation:
+        "La canonical le indica a Google cuál es la versión principal de una página cuando puede existir contenido parecido o duplicado.",
+      whyItMatters:
+        "Evita que varias URLs compitan entre sí y ayuda a concentrar señales SEO en una sola versión.",
+      howToFix: "Agregá una etiqueta canonical apuntando a la versión principal de la página.",
+      example: '<link rel="canonical" href="https://tusitio.com/pagina-principal" />',
       action: "Agregá una etiqueta canonical apuntando a la versión principal de la página.",
       impact: "Medio",
       weight: 8,
@@ -372,6 +418,12 @@ function buildChecks(metrics: AuditMetrics, hasNoIndex: boolean): WeightedCheck[
         : metrics.hasRobotsMeta
           ? "Se detectó meta robots sin noindex."
           : "No hay noindex; la página debería ser indexable por defecto.",
+      explanation:
+        "La indexabilidad indica si una página puede aparecer en Google. Una etiqueta noindex le pide a Google que no la muestre.",
+      whyItMatters:
+        "Si una página importante está marcada como noindex, puede quedar fuera de resultados aunque el contenido sea bueno.",
+      howToFix: "Quitá noindex si esta página debe aparecer en Google.",
+      example: 'Evitar <meta name="robots" content="noindex"> en páginas públicas importantes.',
       action: "Quitá noindex si esta página debe aparecer en Google.",
       impact: "Alto",
       weight: 10,
@@ -382,6 +434,11 @@ function buildChecks(metrics: AuditMetrics, hasNoIndex: boolean): WeightedCheck[
       description: "La etiqueta viewport permite una correcta adaptación móvil.",
       status: metrics.hasViewport ? "pass" : "fail",
       details: metrics.hasViewport ? "Se detectó meta viewport." : "No se detectó meta viewport.",
+      explanation: "La etiqueta viewport le dice al navegador cómo adaptar el sitio a pantallas móviles.",
+      whyItMatters:
+        "Sin viewport, una página puede verse demasiado chica o rota en celulares, afectando experiencia y SEO mobile.",
+      howToFix: "Agregá meta viewport para mejorar experiencia mobile.",
+      example: '<meta name="viewport" content="width=device-width, initial-scale=1" />',
       action: "Agregá meta viewport para mejorar experiencia mobile.",
       impact: "Alto",
       weight: 8,
@@ -392,6 +449,11 @@ function buildChecks(metrics: AuditMetrics, hasNoIndex: boolean): WeightedCheck[
       description: "Define cómo se comparte la página en redes y mensajería.",
       status: metrics.hasOpenGraph ? "pass" : "warning",
       details: metrics.hasOpenGraph ? "Se detectaron etiquetas Open Graph." : "No se detectaron etiquetas Open Graph.",
+      explanation:
+        "Open Graph define cómo se ve tu página cuando alguien la comparte en redes sociales, WhatsApp, Slack o similares.",
+      whyItMatters: "Una buena vista previa puede aumentar clics y confianza cuando el enlace se comparte.",
+      howToFix: "Agregá og:title, og:description e imagen social.",
+      example: "og:title, og:description y og:image con una imagen atractiva de la página.",
       action: "Agregá og:title, og:description e imagen social.",
       impact: "Bajo",
       weight: 6,
@@ -402,6 +464,12 @@ function buildChecks(metrics: AuditMetrics, hasNoIndex: boolean): WeightedCheck[
       description: "Los enlaces internos ayudan a distribuir autoridad y contexto.",
       status: metrics.internalLinks > 0 ? "pass" : metrics.externalLinks > 0 ? "warning" : "fail",
       details: `${metrics.internalLinks} internos y ${metrics.externalLinks} externos detectados.`,
+      explanation:
+        "Los enlaces conectan esta página con otras. Los internos apuntan a tu propio sitio; los externos apuntan a otros dominios.",
+      whyItMatters:
+        "Los enlaces internos ayudan a las personas a seguir navegando y a Google a descubrir páginas relacionadas.",
+      howToFix: "Agregá enlaces internos relevantes hacia páginas relacionadas.",
+      example: "Desde una nota de blog, enlazar a una página de servicio o a otro artículo relacionado.",
       action: "Agregá enlaces internos relevantes hacia páginas relacionadas.",
       impact: "Medio",
       weight: 8,

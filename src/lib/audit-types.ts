@@ -9,6 +9,10 @@ export type AuditCheck = {
   title: string;
   description: string;
   details: string;
+  explanation: string;
+  whyItMatters: string;
+  howToFix: string;
+  example: string;
   status: AuditStatus;
   score: number;
 };
