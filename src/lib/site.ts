@@ -2,9 +2,10 @@ export const siteConfig = {
   name: "SEO Evaluate",
   shortName: "SEO Evaluate",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://seo-evaluate.vercel.app",
+  logo: "/seo-evaluate-logo.png",
   title: "SEO Evaluate | Auditoría SEO gratuita por URL",
   description:
-    "Analizá una página web desde su URL y obtené un score SEO, prioridades y recomendaciones accionables en segundos.",
+    "Analizá una URL con SEO Evaluate y obtené un score SEO, explicaciones simples, prioridades y recomendaciones accionables en segundos.",
   locale: "es_AR",
   keywords: [
     "SEO",

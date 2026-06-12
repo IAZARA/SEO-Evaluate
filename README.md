@@ -1,6 +1,14 @@
 # SEO Evaluate
 
+<p align="center">
+  <img src="./public/seo-evaluate-logo.png" alt="Logo de SEO Evaluate" width="96" />
+</p>
+
 <img src="./docs/banner.png" alt="Banner de SEO Evaluate" width="100%" />
+
+<p align="center">
+  <a href="https://seo-evaluate.vercel.app"><strong>Usar la app en Vercel</strong></a>
+</p>
 
 <p align="center">
   <img alt="Next.js" src="https://img.shields.io/badge/Next.js-16-111827?style=for-the-badge&logo=nextdotjs" />
@@ -10,6 +18,8 @@
 </p>
 
 **SEO Evaluate** es una plataforma minimalista para auditar una URL pública y obtener un diagnóstico SEO claro, rápido y accionable. El objetivo del MVP es resolver el flujo principal: **pegar una URL, analizar el HTML público y entender qué mejorar primero**.
+
+App pública: [https://seo-evaluate.vercel.app](https://seo-evaluate.vercel.app)
 
 ## Descripción del proyecto
 
@@ -29,6 +39,7 @@ No busca reemplazar herramientas avanzadas como Screaming Frog, Ahrefs o Semrush
 - Validación de URL, estado de carga y errores legibles.
 - Modo claro/oscuro con persistencia local.
 - Reporte con prioridades, recomendaciones y checks por categoría.
+- Tarjetas de checks compactas con explicación simple en modal.
 - Exportación del resultado en Markdown.
 
 ## Checks iniciales
@@ -70,7 +81,13 @@ http://localhost:3000
 
 ## Configuración SEO
 
-Antes de desplegar, configurar la URL pública para canonical, sitemap, robots y Open Graph:
+La URL pública del proyecto es:
+
+```bash
+https://seo-evaluate.vercel.app
+```
+
+Esa URL se usa como base para canonical, sitemap, robots, Open Graph, Twitter Cards, manifest y datos estructurados JSON-LD. Para otro dominio, configurar:
 
 ```bash
 NEXT_PUBLIC_SITE_URL=https://tu-dominio.com
