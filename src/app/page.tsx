@@ -23,6 +23,7 @@ import {
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import type { LucideIcon } from "lucide-react";
 import type { AuditCheck, AuditErrorResponse, AuditResult, AuditStatus } from "@/lib/audit-types";
+import { absoluteUrl, siteConfig } from "@/lib/site";
 
 type ThemeMode = "light" | "dark" | "system";
 
@@ -45,6 +46,33 @@ const sampleChecks = [
   "Headings e indexabilidad",
   "Imágenes, enlaces y mobile",
 ];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: siteConfig.name,
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web",
+  url: absoluteUrl("/"),
+  description: siteConfig.description,
+  creator: {
+    "@type": "Organization",
+    name: siteConfig.creator,
+    url: siteConfig.repository,
+  },
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
+  featureList: [
+    "Auditoría SEO por URL",
+    "Score SEO de 0 a 100",
+    "Revisión de title y meta description",
+    "Detección de H1, headings e imágenes sin ALT",
+    "Recomendaciones accionables",
+  ],
+};
 
 export default function Home() {
   const [url, setUrl] = useState("");
@@ -133,6 +161,7 @@ export default function Home() {
 
   return (
     <main className="min-h-dvh bg-[var(--background)] text-[var(--foreground)]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <header className="sticky top-0 z-20 border-b border-[var(--border)] bg-[color-mix(in_srgb,var(--background)_88%,transparent)] backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">

@@ -68,6 +68,16 @@ Abrir:
 http://localhost:3000
 ```
 
+## Configuración SEO
+
+Antes de desplegar, configurar la URL pública para canonical, sitemap, robots y Open Graph:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://tu-dominio.com
+```
+
+Si no se define, la app usa `https://seo-evaluate.vercel.app` como valor por defecto.
+
 ## Scripts
 
 ```bash
